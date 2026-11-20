@@ -1,0 +1,15 @@
+{# Social account links from Farm settings; any left blank are hidden. #}
+{% set networks = [
+  ["facebook", "Facebook"], ["instagram", "Instagram"], ["youtube", "YouTube"],
+  ["tiktok", "TikTok"], ["threads", "Threads"]
+] %}
+{% set social = site.social or {} %}
+{% if social.facebook or social.instagram or social.youtube or social.tiktok or social.threads %}
+  <ul class="social-links">
+    {% for n in networks %}
+      {% if social[n[0]] %}
+        <li><a href="{{ social[n[0]] }}" target="_blank" rel="noopener">{% include "icons/" + n[0] + ".svg" %}<span>{{ n[1] }}</span></a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}

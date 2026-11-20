@@ -1,0 +1,11 @@
+{# One blog post in a list. Expects `post`. #}
+<a class="card post-card" href="{{ post.url }}">
+  {% if post.data.cover %}
+    <span class="card-photo"><img src="{{ post.data.cover | photoUrl }}" alt="" class="photo" loading="lazy" sizes="(min-width: 760px) 330px, 100vw"></span>
+  {% endif %}
+  <span class="card-body">
+    <span class="card-meta">{{ post.date | readableDate }}</span>
+    <span class="card-name">{{ post.data.title }}</span>
+    {% if post.data.summary %}<span class="post-summary">{{ post.data.summary }}</span>{% endif %}
+  </span>
+</a>

@@ -1,0 +1,19 @@
+{#
+  Shows public social posts from pasted links. Expects `embedList`: a list of
+  links (or of {url: ...}). Frames load only when scrolled near (loading=lazy),
+  and each has a plain link underneath in case a post is removed or private.
+#}
+<div class="embed-grid">
+  {% for item in embedList %}
+    {% set link = item.url if item.url else item %}
+    {% if link %}
+      {% set e = link | socialEmbed %}
+      <figure class="embed embed-{{ e.kind }}">
+        {% if e.src %}
+          <iframe src="{{ e.src }}" height="{{ e.height }}" loading="lazy" title="Social media post" allow="encrypted-media; picture-in-picture; clipboard-write" scrolling="no"></iframe>
+        {% endif %}
+        <figcaption><a href="{{ e.url }}" target="_blank" rel="noopener">View this post{% if e.kind != "link" %} on {{ e.kind | capitalize }}{% endif %} ↗</a></figcaption>
+      </figure>
+    {% endif %}
+  {% endfor %}
+</div>

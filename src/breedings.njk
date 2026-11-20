@@ -1,0 +1,36 @@
+---
+layout: layouts/base.njk
+title: Planned breedings
+description: Pairings planned for the coming kidding season.
+permalink: /breedings/
+---
+{% import "partials/cards.njk" as cards with context %}
+<h1>Planned breedings</h1>
+<p class="lead">Pairings for the coming season. Ask to join the waitlist for kids from any of them.</p>
+
+{% set visible = breedings | visibleBreedings(site.show_samples) %}
+{% for b in visible %}
+  {% if true %}
+    {% set damId = b.dam | goatId %}
+    {% set sireId = b.sire | goatId %}
+    {% set damRef = {id: damId, name: goatGraph.goats[damId].name, found: true} if goatGraph.goats[damId] else ({id: null, name: b.dam_name or damId, found: false} if (b.dam_name or damId) else null) %}
+    {% set sireRef = {id: sireId, name: goatGraph.goats[sireId].name, found: true} if goatGraph.goats[sireId] else ({id: null, name: b.sire_name or sireId, found: false} if (b.sire_name or sireId) else null) %}
+    <section class="breeding">
+      <h2>{{ damRef.name if damRef else "Doe to be decided" }} × {{ sireRef.name if sireRef else "Buck to be decided" }}</h2>
+      <p class="breeding-meta">
+        {% if b.expected %}<strong>Kids expected {{ b.expected }}</strong>{% endif %}
+        {% if b.waitlist_open %}<span class="badge badge-for-sale">Waitlist open</span>{% else %}<span class="badge">Waitlist full</span>{% endif %}
+      </p>
+      <div class="parents">
+        {{ cards.parentCard("Dam", damRef, goatGraph.goats, site) }}
+        {{ cards.parentCard("Sire", sireRef, goatGraph.goats, site) }}
+      </div>
+      {% if b.notes %}<p>{{ b.notes }}</p>{% endif %}
+      {% if b.waitlist_open %}
+        {% set pairing = (damRef.name if damRef else "TBD") + " × " + (sireRef.name if sireRef else "TBD") %}
+        <a class="button" href="/contact/?goat={{ pairing | urlencode }}&amp;subject={{ ('Waitlist: ' + pairing) | urlencode }}">Join the waitlist</a>
+      {% endif %}
+    </section>
+  {% endif %}
+{% endfor %}
+{% if not visible.length %}<p>No breedings planned yet. Check back soon.</p>{% endif %}

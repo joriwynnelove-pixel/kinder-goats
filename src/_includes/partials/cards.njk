@@ -1,0 +1,95 @@
+{# Reusable goat cards. Import with: {% import "partials/cards.njk" as cards with context %} #}
+
+{# Main photo of a goat, or a neutral placeholder box. #}
+{# `sizes` tells phones which resized copy to download (see lib/images.js) #}
+{% macro photo(goat, size="card") %}
+  {% if goat.photos and goat.photos[0] %}
+    <img src="{{ goat.photos[0].image | photoUrl }}" alt="{{ goat.name }}{% if goat.photos[0].caption %}: {{ goat.photos[0].caption }}{% endif %}"
+         loading="lazy" decoding="async" class="photo photo-{{ size }}"
+         sizes="{% if size == 'parent' %}(min-width: 760px) 300px, 45vw{% else %}(min-width: 1040px) 250px, (min-width: 560px) 30vw, 50vw{% endif %}">
+  {% else %}
+    <div class="photo photo-{{ size }} photo-none" aria-hidden="true">No photo yet</div>
+  {% endif %}
+{% endmacro %}
+
+{# Small card used in herd grids and offspring grids. #}
+{# The data-* attributes are used by the Herd page filters. #}
+{% macro goatCard(goat) %}
+  <a class="card" href="/goats/{{ goat.id }}/"
+     data-sex="{{ goat.sex }}" data-status="{{ goat.status or 'retained' }}"
+     {% if goat.birth_date %}data-born="{{ goat.birth_date | isoDate }}"{% endif %}
+     {% if goat.birth_date | isKid %}data-kid{% endif %}>
+    <span class="card-photo">
+      {{ photo(goat) }}
+      {% if goat.status and goat.status != "retained" and goat.status != "reference" %}
+        <span class="badge badge-{{ goat.status }}">{{ goat.status | statusLabel }}</span>
+      {% endif %}
+    </span>
+    <span class="card-body">
+      <span class="card-name">{{ goat.nickname or goat.name }}</span>
+      {% if goat.nickname %}<span class="card-sub">{{ goat.name }}</span>{% endif %}
+      <span class="card-meta">
+        {{ goat.sex | capitalize }}{% if goat.birth_date %} · born {{ goat.birth_date | year }}{% endif %}
+      </span>
+      {% if goat.status == "for-sale" %}{% if site.show_prices and goat.price %}<span class="card-price">{{ goat.price }}</span>{% elif not site.show_prices %}<span class="card-price card-inquire">Inquire for price</span>{% endif %}{% endif %}
+    </span>
+  </a>
+{% endmacro %}
+
+{#
+  Parent card. `ref` is a parent reference from goatGraph ({id, name, found} or null);
+  `goats` is goatGraph.goats so we can look the parent up.
+#}
+{% macro parentCard(label, ref, goats, site) %}
+  <article class="parent-card">
+    <h3 class="parent-label">{{ label }}</h3>
+    {% if ref and ref.found %}
+      {% set p = goats[ref.id] %}
+      <a class="parent-link" href="/goats/{{ p.id }}/">
+        {{ photo(p, "parent") }}
+        <span class="parent-name">{{ p.name }}</span>
+      </a>
+      {% if p.registration_number %}<p class="parent-reg">{{ site.registry_name }} {{ p.registration_number }}</p>{% endif %}
+      {% if p.blurb %}<p class="parent-blurb">{{ p.blurb }}</p>{% endif %}
+      {% if p.pedigree_url %}<p><a href="{{ p.pedigree_url }}" target="_blank" rel="noopener">{{ site.registry_name }} pedigree ↗</a></p>{% endif %}
+    {% elif ref %}
+      <div class="photo photo-parent photo-none" aria-hidden="true">No photo</div>
+      <p class="parent-name">{{ ref.name }}</p>
+    {% else %}
+      <div class="photo photo-parent photo-none" aria-hidden="true">Unknown</div>
+      <p class="parent-name muted">Not recorded</p>
+    {% endif %}
+  </article>
+{% endmacro %}
+
+{#
+  Link to an uploaded lab report. Photos show as a small thumbnail; a PDF shows
+  as a "PDF" button. Either opens full size in a new tab so buyers can read it.
+#}
+{% macro reportLink(path, label) %}
+  {% if path %}
+    {% if path | lower | endsWith(".pdf") %}
+      <a class="report-pdf" href="{{ path }}" target="_blank" rel="noopener">View PDF</a>
+    {% else %}
+      <a class="report-thumb" href="{{ path | photoUrl }}" target="_blank" rel="noopener" title="Open {{ label }}">
+        <img src="{{ path | photoUrl }}" alt="{{ label }}" loading="lazy">
+      </a>
+    {% endif %}
+  {% else %}
+    <span class="muted">—</span>
+  {% endif %}
+{% endmacro %}
+
+{# One name in the grandparents row. #}
+{% macro ancestor(label, ref) %}
+  <li>
+    <span class="ancestor-label">{{ label }}</span>
+    {% if ref and ref.found %}
+      <a href="/goats/{{ ref.id }}/">{{ ref.name }}</a>
+    {% elif ref %}
+      <span>{{ ref.name }}</span>
+    {% else %}
+      <span class="muted">Not recorded</span>
+    {% endif %}
+  </li>
+{% endmacro %}

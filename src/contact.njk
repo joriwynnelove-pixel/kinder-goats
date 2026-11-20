@@ -1,0 +1,51 @@
+---
+layout: layouts/base.njk
+title: Contact
+description: Questions about our goats, kids or waitlist? Get in touch.
+permalink: /contact/
+---
+<h1>Contact us</h1>
+<p class="lead">Questions about a goat, upcoming kids or the waitlist? We'd love to hear from you.</p>
+
+<div class="contact-layout">
+  {#
+    The form sends through a free form service (e.g. Formspree) set under
+    Farm settings > Contact form address. No address set = email link only.
+  #}
+  {% if site.form_endpoint %}
+    <form class="contact-form" action="{{ site.form_endpoint }}" method="POST">
+      <input type="hidden" name="_subject" value="Website message for {{ site.farm_name }}">
+      <label>Your name <input type="text" name="name" autocomplete="name" required></label>
+      <label>Email <input type="email" name="email" autocomplete="email" required></label>
+      <label>Phone <span class="muted">(optional)</span> <input type="tel" name="phone" autocomplete="tel"></label>
+      <label>Which goat? <span class="muted">(optional)</span> <input type="text" name="goat" id="goat-field"></label>
+      <label>Message <textarea name="message" rows="6" required></textarea></label>
+      {# Spam trap: people never see or fill this in #}
+      <label class="visually-hidden" aria-hidden="true">Leave blank <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+      <button class="button" type="submit">Send message</button>
+    </form>
+  {% endif %}
+
+  <aside class="contact-aside">
+    {% if site.contact_email %}
+      <p>{% if site.form_endpoint %}Or email us at{% else %}Email us at{% endif %}<br>
+        <a href="mailto:{{ site.contact_email }}" id="mail-link"><strong>{{ site.contact_email }}</strong></a></p>
+    {% endif %}
+    <p>{{ site.farm_name }}<br>{{ site.location }}</p>
+    {% include "partials/social-links.njk" %}
+  </aside>
+</div>
+
+<script>
+  // Arriving from a goat page ("Ask about Clover") fills in the goat's name.
+  (() => {
+    const params = new URLSearchParams(location.search);
+    const goat = params.get("goat");
+    if (!goat) return;
+    const field = document.getElementById("goat-field");
+    if (field) field.value = goat;
+    const subject = params.get("subject");
+    const mail = document.getElementById("mail-link");
+    if (mail && subject) mail.href += "?subject=" + encodeURIComponent(subject);
+  })();
+</script>

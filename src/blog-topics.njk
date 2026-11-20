@@ -1,0 +1,19 @@
+---js
+{
+  layout: "layouts/base.njk",
+  pagination: { data: "collections.topicList", size: 1, alias: "topic" },
+  eleventyComputed: {
+    title: (data) => `Posts about ${data.topic}`,
+    // Same slug as the "slug" filter in eleventy.config.js
+    permalink: (data) =>
+      data.site.blog_enabled === false
+        ? false
+        : `/blog/topics/${String(data.topic || "").toLowerCase().normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}/`,
+  },
+}
+---
+<p class="muted"><a href="/blog/">Blog</a></p>
+<h1>{{ topic }}</h1>
+<div class="post-grid">
+  {% for post in collections.posts | withTopic(topic) %}{% include "partials/post-card.njk" %}{% endfor %}
+</div>

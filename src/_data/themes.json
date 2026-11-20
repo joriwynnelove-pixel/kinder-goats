@@ -1,0 +1,62 @@
+{
+  "pasture": {
+    "label": "Pasture (greens and cream)",
+    "primary": "#3f5a36",
+    "accent": "#b5803a",
+    "background": "#faf6ec",
+    "surface": "#fffdf7",
+    "text": "#2a2a24",
+    "muted_text": "#6b675b",
+    "border": "#e2dccb"
+  },
+  "barn": {
+    "label": "Barn (red and oat)",
+    "primary": "#8c2f27",
+    "accent": "#c48a2c",
+    "background": "#f8f3ea",
+    "surface": "#fffcf6",
+    "text": "#2b2522",
+    "muted_text": "#6e625a",
+    "border": "#e6dacb"
+  },
+  "creek": {
+    "label": "Creek (blue and sand)",
+    "primary": "#2f5571",
+    "accent": "#c07a3c",
+    "background": "#f5f4ef",
+    "surface": "#fffffb",
+    "text": "#22272b",
+    "muted_text": "#5f666c",
+    "border": "#dcddd6"
+  },
+  "harvest": {
+    "label": "Harvest (brown and gold)",
+    "primary": "#5b4130",
+    "accent": "#c99a2e",
+    "background": "#faf5ea",
+    "surface": "#fffdf7",
+    "text": "#2c2520",
+    "muted_text": "#6f6357",
+    "border": "#e7dcc9"
+  },
+  "heather": {
+    "label": "Heather (plum and sage)",
+    "primary": "#5c3d63",
+    "accent": "#7d9a6a",
+    "background": "#f8f5f2",
+    "surface": "#fffdfb",
+    "text": "#2a2530",
+    "muted_text": "#685f6b",
+    "border": "#e3dce0"
+  },
+  "charcoal": {
+    "label": "Charcoal (gray and copper)",
+    "primary": "#33383d",
+    "accent": "#b8693a",
+    "background": "#f6f5f2",
+    "surface": "#ffffff",
+    "text": "#222426",
+    "muted_text": "#62666a",
+    "border": "#dedcd7"
+  }
+}

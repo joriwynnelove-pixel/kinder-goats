@@ -1,0 +1,28 @@
+---
+layout: layouts/base.njk
+---
+{% import "partials/cards.njk" as cards with context %}
+<article class="post">
+  <header class="post-head">
+    <p class="muted"><a href="/blog/">Blog</a> · <time datetime="{{ page.date | isoDate }}">{{ page.date | readableDate }}</time></p>
+    <h1>{{ title }}</h1>
+    {% if topics | hasItems %}
+      <p class="topics">{% for t in topics %}<a class="topic" href="/blog/topics/{{ t | slug }}/">{{ t }}</a>{% endfor %}</p>
+    {% endif %}
+  </header>
+  {% if cover %}
+    <img class="post-cover" src="{{ cover | photoUrl }}" alt="" sizes="(min-width: 760px) 720px, 100vw" loading="eager">
+  {% endif %}
+  <div class="prose">{{ content | safe }}</div>
+
+  {# Goats tagged on this post #}
+  {% set tagged = [] %}
+  {% for g in goats or [] %}{% set gid = g | goatId %}{% if goatGraph.goats[gid] %}{% set tagged = (tagged.push(goatGraph.goats[gid]), tagged) %}{% endif %}{% endfor %}
+  {% if tagged.length %}
+    <section>
+      <h2>Goats in this post</h2>
+      <div class="grid">{% for gt in tagged %}{{ cards.goatCard(gt) }}{% endfor %}</div>
+    </section>
+  {% endif %}
+  <p class="contact-line"><a href="/blog/">← All posts</a></p>
+</article>

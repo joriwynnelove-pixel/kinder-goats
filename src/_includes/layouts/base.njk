@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% set fullTitle = (title + " | " if title else "") + site.farm_name %}
+  <title>{{ fullTitle }}</title>
+  {% set metaDescription = description or site.tagline %}
+  {% if metaDescription %}<meta name="description" content="{{ metaDescription }}">{% endif %}
+  {% if noindex %}<meta name="robots" content="noindex">{% endif %}
+
+  {# Share previews (Facebook, Messenger, texts). siteUrl comes from lib/settings.js. #}
+  {% if siteUrl %}
+    <link rel="canonical" href="{{ siteUrl }}{{ page.url }}">
+    <meta property="og:url" content="{{ siteUrl }}{{ page.url }}">
+  {% endif %}
+  <meta property="og:site_name" content="{{ site.farm_name }}">
+  <meta property="og:type" content="{{ 'article' if ogType == 'article' else 'website' }}">
+  <meta property="og:title" content="{{ title or site.farm_name }}">
+  {% if metaDescription %}<meta property="og:description" content="{{ metaDescription }}">{% endif %}
+  {% if shareImage %}
+    <meta property="og:image" content="{{ shareImage.url }}">
+    {% if shareImage.width %}<meta property="og:image:width" content="{{ shareImage.width }}">
+    <meta property="og:image:height" content="{{ shareImage.height }}">{% endif %}
+    {% if shareImage.alt %}<meta property="og:image:alt" content="{{ shareImage.alt }}">{% endif %}
+    <meta name="twitter:card" content="summary_large_image">
+  {% elif siteUrl and site.share_image %}
+    <meta property="og:image" content="{{ siteUrl }}{{ site.share_image | photoUrl }}">
+    <meta name="twitter:card" content="summary_large_image">
+  {% endif %}
+  {% if site.blog_enabled !== false %}<link rel="alternate" type="application/atom+xml" title="{{ site.farm_name }} blog" href="/blog/feed.xml">{% endif %}
+
+  <link rel="stylesheet" href="/css/site.css">
+  {# Colors: a ready-made theme (src/_data/themes.json) chosen in Farm settings,
+     with any custom colors filled in there taking priority. #}
+  {% set preset = themes[site.theme_preset] or themes.pasture %}
+  {% set custom = site.theme or {} %}
+  <style>
+    :root {
+      --primary: {{ custom.primary or preset.primary }};
+      --accent: {{ custom.accent or preset.accent }};
+      --bg: {{ custom.background or preset.background }};
+      --surface: {{ preset.surface }};
+      --text: {{ preset.text }};
+      --muted: {{ preset.muted_text }};
+      --line: {{ preset.border }};
+      {% if custom.heading_font %}--heading-font: {{ custom.heading_font | safe }};{% endif %}
+      {% if custom.body_font %}--body-font: {{ custom.body_font | safe }};{% endif %}
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  {% set url = page.url or "" %}
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">
+        {% if site.logo %}<img src="{{ site.logo | photoUrl }}" alt="" class="logo" height="40" sizes="80px">{% endif %}
+        <span>{{ site.farm_name }}</span>
+      </a>
+      <nav aria-label="Main">
+        <a href="/"{% if url == "/" %} aria-current="page"{% endif %}>Home</a>
+        <a href="/herd/"{% if url == "/herd/" or url.startsWith("/goats/") %} aria-current="page"{% endif %}>Herd</a>
+        <a href="/for-sale/"{% if url == "/for-sale/" %} aria-current="page"{% endif %}>For Sale</a>
+        {% if (breedings | visibleBreedings(site.show_samples)).length %}<a href="/breedings/"{% if url == "/breedings/" %} aria-current="page"{% endif %}>Breedings</a>{% endif %}
+        {% if site.blog_enabled !== false %}<a href="/blog/"{% if url.startsWith("/blog/") %} aria-current="page"{% endif %}>Blog</a>{% endif %}
+        <a href="/about/"{% if url == "/about/" %} aria-current="page"{% endif %}>About</a>
+        <a href="/contact/"{% if url == "/contact/" %} aria-current="page"{% endif %}>Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      {% include "partials/social-links.njk" %}
+      <p>{{ site.farm_name }} · {{ site.location }}{% if site.contact_email %} · <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>{% endif %}</p>
+      <p class="footer-small">
+        {% if site.editor_url %}<a href="{{ site.editor_url }}" rel="nofollow">Owner login</a> · {% endif %}
+        Built with the free goat herd website template.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

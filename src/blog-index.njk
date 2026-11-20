@@ -1,0 +1,25 @@
+---js
+{
+  layout: "layouts/base.njk",
+  title: "Blog",
+  description: "Farm news, kidding announcements and goat care.",
+  // No blog page at all when the blog is switched off in Farm settings
+  eleventyComputed: {
+    permalink: (data) => (data.site.blog_enabled === false ? false : "/blog/"),
+  },
+}
+---
+<h1>From the farm</h1>
+{% set topicList = collections.posts | allTopics %}
+{% if topicList.length %}
+  <p class="topics">{% for t in topicList %}<a class="topic" href="/blog/topics/{{ t | slug }}/">{{ t }}</a>{% endfor %}</p>
+{% endif %}
+{% set posts = collections.posts | reverse %}
+{% if posts.length %}
+  <div class="post-grid">
+    {% for post in posts %}{% include "partials/post-card.njk" %}{% endfor %}
+  </div>
+{% else %}
+  <p>No posts yet.</p>
+{% endif %}
+<p class="muted small"><a href="/blog/feed.xml">Follow by RSS</a></p>

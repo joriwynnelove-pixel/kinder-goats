@@ -1,0 +1,34 @@
+---
+layout: layouts/base.njk
+title: For sale
+description: Goats currently for sale or reserved.
+permalink: /for-sale/
+---
+{% import "partials/cards.njk" as cards with context %}
+{% set available = [] %}
+{% set reserved = [] %}
+{% for id in goatGraph.ids %}
+  {% set gt = goatGraph.goats[id] %}
+  {% if gt.status == "for-sale" %}{% set available = (available.push(gt), available) %}{% endif %}
+  {% if gt.status == "reserved" %}{% set reserved = (reserved.push(gt), reserved) %}{% endif %}
+{% endfor %}
+
+<h1>For sale</h1>
+
+{% if available.length %}
+  <div class="grid">
+    {% for gt in available | herdOrder %}{{ cards.goatCard(gt) }}{% endfor %}
+  </div>
+{% else %}
+  <p class="lead">Nothing is for sale right now.</p>
+{% endif %}
+
+{% if reserved.length %}
+  <h2>Reserved</h2>
+  <p class="muted">These goats have a deposit, but sales sometimes fall through. Ask to be the backup buyer.</p>
+  <div class="grid">
+    {% for gt in reserved | herdOrder %}{{ cards.goatCard(gt) }}{% endfor %}
+  </div>
+{% endif %}
+
+<p class="contact-line">Questions? Email <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>.</p>

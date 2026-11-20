@@ -1,0 +1,56 @@
+---
+layout: layouts/base.njk
+title: Our herd
+description: Every goat in our herd, with photos, records and family links.
+permalink: /herd/
+---
+{% import "partials/cards.njk" as cards with context %}
+{% set current = [] %}
+{% set history = [] %}
+{% for id in goatGraph.ids %}
+  {% set gt = goatGraph.goats[id] %}
+  {% if gt.status == "sold" or gt.status == "deceased" %}
+    {% set history = (history.push(gt), history) %}
+  {% elif gt.status != "reference" %}
+    {% set current = (current.push(gt), current) %}
+  {% endif %}
+{% endfor %}
+
+<h1>Our herd</h1>
+<p class="lead">Every goat at {{ site.farm_name }}, with photos, records and family links.</p>
+
+{#
+  Filters are plain radio buttons styled as chips; site.css shows and hides
+  cards with :has(), so they work without JavaScript.
+#}
+<div class="herd">
+  <fieldset class="filters">
+    <legend class="visually-hidden">Show</legend>
+    <input type="radio" name="show" id="f-all" checked><label for="f-all">All</label>
+    <input type="radio" name="show" id="f-does"><label for="f-does">Does</label>
+    <input type="radio" name="show" id="f-bucks"><label for="f-bucks">Bucks</label>
+    <input type="radio" name="show" id="f-kids"><label for="f-kids">Kids</label>
+    <input type="radio" name="show" id="f-sale"><label for="f-sale">For sale</label>
+    {% if history.length %}<input type="radio" name="show" id="f-history"><label for="f-history">Herd history</label>{% endif %}
+  </fieldset>
+
+  {% if current.length %}
+    <div class="grid herd-current">
+      {% for gt in current | herdOrder %}{{ cards.goatCard(gt) }}{% endfor %}
+    </div>
+    <p class="none-match muted">No goats match right now.</p>
+  {% else %}
+    <p>No goats added yet.</p>
+  {% endif %}
+
+  {% if history.length %}
+    <section class="herd-history">
+      <h2>Herd history</h2>
+      <p class="muted">Goats who have been sold or have passed on. Their families are still linked.</p>
+      <div class="grid">
+        {% for gt in history | herdOrder %}{{ cards.goatCard(gt) }}{% endfor %}
+      </div>
+    </section>
+  {% endif %}
+</div>
+<script src="/js/herd-filter.js" defer></script>

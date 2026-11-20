@@ -1,0 +1,26 @@
+{
+  "name": "goat-herd-site",
+  "version": "0.1.0",
+  "description": "A free, static website for a small goat herd: one page per goat, linked like a pedigree.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "test": "node --test tests/",
+    "remove-samples": "node scripts/remove-samples.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.8",
+    "@11ty/eleventy-img": "7.1.1",
+    "@11ty/eleventy-plugin-rss": "3.1.0",
+    "gray-matter": "4.0.3",
+    "heic-decode": "2.1.0",
+    "qrcode": "1.5.4",
+    "sharp": "0.35.5"
+  }
+}

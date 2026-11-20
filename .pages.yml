@@ -1,0 +1,331 @@
+# Web editor setup for Pages CMS (https://pagescms.org).
+# This file decides what owners see when they log in: the forms, the fields
+# and their help text. Owners never need to open it.
+
+media:
+  input: src/images
+  output: /images
+  rename: safe
+  # iPhone photos (HEIC) are fine: the build makes JPEG copies automatically
+  extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, svg, pdf]
+
+content:
+  # ------------------------------------------------------------------ Goats
+  - name: goats
+    label: Goats
+    type: collection
+    path: src/goats
+    exclude: [goats.11tydata.js]
+    filename: "{name}.md"
+    view:
+      primary: name
+      fields: [name, status, sex]
+      sort: name
+      order: asc
+    fields:
+      - name: name
+        label: Registered name
+        type: string
+        required: true
+        description: Full registered name, e.g. "Lingering Seasons Clover".
+      - name: nickname
+        label: Barn name
+        type: string
+      - name: sex
+        label: Sex
+        type: select
+        required: true
+        options:
+          values:
+            - { name: doe, label: Doe }
+            - { name: buck, label: Buck }
+            - { name: wether, label: Wether }
+      - name: status
+        label: Status
+        type: select
+        description: For sale and reserved goats appear on the For Sale page. "Outside goat" is for sires and ancestors you don't own.
+        options:
+          values:
+            - { name: retained, label: In our herd (not for sale) }
+            - { name: for-sale, label: For sale }
+            - { name: reserved, label: Reserved }
+            - { name: sold, label: Sold }
+            - { name: deceased, label: Deceased (in memory) }
+            - { name: reference, label: Outside goat (pedigree only) }
+      - name: featured
+        label: Feature on the home page
+        type: boolean
+      - name: price
+        label: Price
+        type: string
+        description: Only shown if "Show prices" is on in Farm settings. Otherwise the page says "Inquire for price".
+      - name: birth_date
+        label: Birth date
+        type: date
+        default: ""
+      - name: registration_number
+        label: Registration number
+        type: string
+      - name: tattoo
+        label: Tattoo
+        type: string
+        description: 'Left and right ear, e.g. "L: LSF  R: 26B".'
+      - name: color
+        label: Color and markings
+        type: string
+      - name: horn_status
+        label: Horns
+        type: select
+        options:
+          values:
+            - { name: disbudded, label: Disbudded }
+            - { name: polled, label: Polled }
+            - { name: horned, label: Horned }
+            - { name: scurred, label: Scurred }
+      - name: breeder
+        label: Breeder
+        type: string
+        description: Leave blank if you bred this goat.
+      - name: owner
+        label: Owner
+        type: string
+        description: Leave blank if you own this goat.
+      - name: dam
+        label: Dam (mother), from your goat list
+        type: reference
+        options:
+          collection: goats
+          search: "name,nickname"
+          value: "{path}"
+          label: "{name}"
+      - name: dam_name
+        label: Dam's name, if she isn't in your goat list
+        type: string
+      - name: sire
+        label: Sire (father), from your goat list
+        type: reference
+        options:
+          collection: goats
+          search: "name,nickname"
+          value: "{path}"
+          label: "{name}"
+      - name: sire_name
+        label: Sire's name, if he isn't in your goat list
+        type: string
+      - name: pedigree_url
+        label: Online pedigree link
+        type: string
+        description: Open this goat in the registry's online pedigree database and paste the page address here.
+      - name: photos
+        label: Photos
+        type: object
+        description: The first photo is the main photo. Upload straight from your phone (iPhone HEIC photos are fine); the site shrinks them automatically.
+        list:
+          collapsible: { collapsed: true, summary: "{caption} {date}" }
+        fields:
+          - { name: image, label: Photo, type: image, options: { path: src/images/goats, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif] } }
+          - { name: caption, label: Caption, type: string }
+          - { name: date, label: Date taken, type: date, default: "" }
+      - name: videos
+        label: Videos
+        type: object
+        description: Upload the video to YouTube (Unlisted is fine) or Vimeo, then paste its link.
+        list:
+          collapsible: { collapsed: true, summary: "{caption} {date}" }
+        fields:
+          - { name: url, label: Video link, type: string }
+          - { name: caption, label: Caption, type: string }
+          - { name: date, label: Date filmed, type: date, default: "" }
+      - name: social_posts
+        label: Facebook, Instagram or Threads posts about this goat
+        type: string
+        list: true
+        description: Paste the link to a public post.
+      - name: milk_records
+        label: Milk records
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{date}: {lbs} lbs" }
+        fields:
+          - { name: date, label: Test date, type: date, default: "" }
+          - { name: days_in_milk, label: Days in milk, type: number }
+          - { name: lbs, label: Milk (lbs), type: number }
+          - { name: butterfat, label: Butterfat %, type: number }
+          - { name: protein, label: Protein %, type: number }
+      - name: evaluations
+        label: Evaluations and show results
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{date}: {type} {score}" }
+        fields:
+          - { name: date, label: Date, type: date, default: "" }
+          - { name: type, label: Type, type: string, description: "e.g. Linear appraisal, County fair" }
+          - { name: score, label: Score or placing, type: string }
+          - { name: notes, label: Notes, type: string }
+      - name: health_tests
+        label: Health tests
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{date}: {test} {result}" }
+        fields:
+          - { name: date, label: Date, type: date, default: "" }
+          - { name: test, label: Test, type: string, description: "e.g. CAE, CL, Johne's" }
+          - { name: result, label: Result, type: string }
+          - { name: lab, label: Lab, type: string }
+          - { name: report, label: Lab report (photo or PDF), type: file, description: "Cover your address and account numbers first.", options: { path: src/images/reports, extensions: [jpg, jpeg, png, webp, heic, heif, pdf] } }
+      - name: kidding_history
+        label: Kidding history
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{date}: {kids} kids" }
+        fields:
+          - { name: date, label: Kidding date, type: date, default: "" }
+          - { name: kids, label: Number of kids, type: number }
+          - { name: notes, label: Notes, type: string }
+      - name: body
+        label: Description
+        type: rich-text
+        description: Temperament, conformation, anything a buyer should know. The first sentence shows on parent cards.
+      # Kept as-is for the sample goats; not shown in the editor
+      - { name: id, type: string, hidden: true }
+      - { name: sample, type: boolean, hidden: true }
+
+  # ------------------------------------------------------------------ Blog
+  - name: blog
+    label: Blog posts
+    type: collection
+    path: src/blog
+    exclude: [blog.11tydata.js]
+    filename: "{year}-{month}-{day}-{title}.md"
+    view:
+      primary: title
+      fields: [title, date]
+      sort: date
+      order: desc
+    fields:
+      - { name: title, label: Title, type: string, required: true }
+      - { name: date, label: Date, type: date }
+      - { name: cover, label: Cover photo, type: image, options: { path: src/images/blog, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif] } }
+      - { name: summary, label: Short summary, type: text, description: Shown on the blog list and in share previews. }
+      - { name: topics, label: Topics, type: string, list: true, description: "e.g. Kidding, Goat care, Farm news" }
+      - name: goats
+        label: Goats in this post
+        type: reference
+        description: Their cards appear at the bottom, and the post is listed on their pages.
+        options:
+          collection: goats
+          multiple: true
+          search: "name,nickname"
+          value: "{path}"
+          label: "{name}"
+      - { name: body, label: Post, type: rich-text }
+      - { name: sample, type: boolean, hidden: true }
+
+  # ------------------------------------------------------------------ Pages
+  - name: pages
+    label: Pages
+    type: group
+    items:
+      - name: about
+        label: About page
+        type: file
+        path: src/about.md
+        fields:
+          - { name: title, label: Page title, type: string }
+          - { name: body, label: Your farm's story, type: rich-text }
+          - { name: sales_policy, label: "Sales policy (deposits, pickup, what's included)", type: rich-text }
+          - { name: permalink, type: string, hidden: true }
+          - { name: layout, type: string, hidden: true }
+
+      - name: breedings
+        label: Planned breedings
+        type: file
+        path: src/_data/breedings.json
+        format: json
+        list: true
+        fields:
+          - name: dam
+            label: Doe, from your goat list
+            type: reference
+            options: { collection: goats, search: "name,nickname", value: "{path}", label: "{name}" }
+          - { name: dam_name, label: "Doe's name, if not in your list", type: string }
+          - name: sire
+            label: Buck, from your goat list
+            type: reference
+            options: { collection: goats, search: "name,nickname", value: "{path}", label: "{name}" }
+          - { name: sire_name, label: "Buck's name, if not in your list", type: string }
+          - { name: expected, label: Kids expected, type: string, description: "e.g. March 2027" }
+          - { name: notes, label: Notes, type: text }
+          - { name: waitlist_open, label: Waitlist open, type: boolean, default: true }
+          - { name: sample, type: boolean, hidden: true }
+
+  # ------------------------------------------------------------------ Settings
+  - name: settings
+    label: Farm settings
+    type: file
+    path: src/_data/site.json
+    format: json
+    fields:
+      - { name: farm_name, label: Farm name, type: string, required: true }
+      - { name: herd_prefix, label: Herd name / prefix, type: string }
+      - { name: breed, label: Breed, type: string, description: 'Used in page titles, e.g. "Kinder doe for sale".' }
+      - { name: location, label: Location, type: string, description: "e.g. Chehalis, WA" }
+      - { name: tagline, label: Tagline, type: string }
+      - { name: home_intro, label: Home page welcome, type: rich-text }
+      - { name: logo, label: Logo (optional), type: image, options: { path: src/images/site, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif] } }
+      - name: theme_preset
+        label: Color theme
+        type: select
+        options:
+          values:
+            - { name: pasture, label: Pasture (greens and cream) }
+            - { name: barn, label: Barn (red and oat) }
+            - { name: creek, label: Creek (blue and sand) }
+            - { name: harvest, label: Harvest (brown and gold) }
+            - { name: heather, label: Heather (plum and sage) }
+            - { name: charcoal, label: Charcoal (gray and copper) }
+      - name: theme
+        label: Custom colors (optional)
+        type: object
+        description: 'Leave blank to use the color theme above. Colors are written like #3f5a36 (search "color picker" to find one).'
+        fields:
+          - { name: primary, label: "Main color (header, buttons)", type: string, pattern: { regex: "^(#[0-9a-fA-F]{6})?$", message: "Use a color like #3f5a36" } }
+          - { name: accent, label: Accent color, type: string, pattern: { regex: "^(#[0-9a-fA-F]{6})?$", message: "Use a color like #b5803a" } }
+          - { name: background, label: Page background, type: string, pattern: { regex: "^(#[0-9a-fA-F]{6})?$", message: "Use a color like #faf6ec" } }
+          - { name: heading_font, type: string, hidden: true }
+          - { name: body_font, type: string, hidden: true }
+      - { name: show_prices, label: Show prices, type: boolean, description: 'Off means for-sale goats say "Inquire for price".' }
+      - { name: show_samples, label: Show sample content, type: boolean, description: "Turn off once you've added your own goats to hide the example goats, posts and breeding." }
+      - { name: blog_enabled, label: Show the blog, type: boolean }
+      - { name: contact_email, label: Contact email, type: string, required: true }
+      - { name: form_endpoint, label: Contact form address, type: string, description: "From a free form service such as Formspree, e.g. https://formspree.io/f/abcdwxyz. Leave blank to show only your email." }
+      - name: social
+        label: Social media accounts
+        type: object
+        description: Paste the full link to each page. Blank ones are hidden.
+        fields:
+          - { name: facebook, label: Facebook, type: string }
+          - { name: instagram, label: Instagram, type: string }
+          - { name: youtube, label: YouTube, type: string }
+          - { name: tiktok, label: TikTok, type: string }
+          - { name: threads, label: Threads, type: string }
+      - { name: featured_posts, label: '"Latest from the farm" posts', type: string, list: true, description: "Paste links to public Facebook, Instagram or Threads posts to show on the home page." }
+      - { name: feed_embed_code, label: Auto-updating feed code (optional), type: code, options: { language: html }, description: "Paste embed code from a feed service like Elfsight. Free plans are limited and the feed depends on that company." }
+      - name: herd_health_tests
+        label: Whole-herd health tests
+        type: object
+        description: Shown on the About page and every herd goat's page.
+        list:
+          collapsible: { collapsed: true, summary: "{date}: {test}" }
+        fields:
+          - { name: date, label: Date, type: date, default: "" }
+          - { name: test, label: Tests, type: string }
+          - { name: result, label: Result, type: string }
+          - { name: lab, label: Lab, type: string }
+          - { name: report, label: Lab report (photo or PDF), type: file, options: { path: src/images/reports, extensions: [jpg, jpeg, png, webp, heic, heif, pdf] } }
+      - { name: registry_name, label: Registry short name, type: string, description: "e.g. KGBA" }
+      - { name: registry_full_name, label: Registry full name, type: string }
+      - { name: registry_search_url, label: Registry pedigree search page, type: string }
+      - { name: url, label: Site address (optional), type: string, description: Filled in automatically on GitHub Pages. Only set this if you use your own domain name. }
+      - { name: share_image, label: Default share picture, type: image, options: { extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif] }, description: Used when a page without its own photo is shared. }
+      - { name: editor_url, type: string, hidden: true }

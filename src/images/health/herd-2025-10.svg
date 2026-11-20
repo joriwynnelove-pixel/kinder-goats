@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 1100" width="850" height="1100">
+  <rect width="850" height="1100" fill="#ffffff"/>
+  <rect x="30" y="30" width="790" height="1040" fill="none" stroke="#999" stroke-width="2"/>
+  <text x="60" y="110" font-family="Georgia, serif" font-size="40" fill="#222">SAMPLE LAB REPORT</text>
+  <text x="60" y="160" font-family="sans-serif" font-size="26" fill="#666">Whole-herd test, 6 animals</text>
+  <line x1="60" y1="185" x2="790" y2="185" stroke="#bbb" stroke-width="2"/>
+  <text x="60" y="230" font-family="monospace" font-size="26" fill="#333">Tests:   CAE, CL, Johne's</text><text x="60" y="276" font-family="monospace" font-size="26" fill="#333">Date:    Oct 12, 2025</text><text x="60" y="322" font-family="monospace" font-size="26" fill="#333">Animals: 6</text><text x="60" y="368" font-family="monospace" font-size="26" fill="#333">CAE:     6 negative</text><text x="60" y="414" font-family="monospace" font-size="26" fill="#333">CL:      6 negative</text><text x="60" y="460" font-family="monospace" font-size="26" fill="#333">Johne's: 6 negative</text>
+  <text x="425" y="1020" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#b00">Placeholder image. Replace with a photo or scan of the real report.</text>
+</svg>

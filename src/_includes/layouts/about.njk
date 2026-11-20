@@ -1,0 +1,32 @@
+---
+layout: layouts/base.njk
+---
+{% import "partials/cards.njk" as cards with context %}
+<article class="prose-page">
+  <h1>{{ title }}</h1>
+  <div class="prose">{{ content | safe }}</div>
+
+  {% if site.herd_health_tests | hasItems %}
+    <section class="records">
+      <h2>Herd health testing</h2>
+      <div class="table-scroll"><table>
+        <thead><tr><th>Date</th><th>Test</th><th>Result</th><th>Lab report</th></tr></thead>
+        <tbody>
+        {% for r in site.herd_health_tests %}
+          <tr><td>{{ r.date | readableDate }}</td><td>{{ r.test }}{% if r.lab %}<br><span class="muted">{{ r.lab }}</span>{% endif %}</td><td>{{ r.result }}</td><td>{{ cards.reportLink(r.report, r.test + " herd report") }}</td></tr>
+        {% endfor %}
+        </tbody>
+      </table></div>
+      <p class="muted small">Tap a report to open it full size.</p>
+    </section>
+  {% endif %}
+
+  {% if sales_policy %}
+    <section>
+      <h2>Sales policy</h2>
+      <div class="prose">{{ sales_policy | renderContent("md") | safe }}</div>
+    </section>
+  {% endif %}
+
+  <p class="contact-line"><a class="button" href="/contact/">Get in touch</a></p>
+</article>

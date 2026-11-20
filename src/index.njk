@@ -1,0 +1,45 @@
+---
+layout: layouts/base.njk
+permalink: /
+---
+{% import "partials/cards.njk" as cards with context %}
+<section class="hero">
+  <h1>{{ site.farm_name }}</h1>
+  <p class="lead">{{ site.tagline }}</p>
+  {% if site.home_intro %}<div class="prose">{{ site.home_intro | renderContent("md") | safe }}</div>{% endif %}
+  <p class="hero-actions">
+    <a class="button" href="/herd/">Meet the herd</a>
+    <a class="button button-outline" href="/for-sale/">See what's for sale</a>
+  </p>
+</section>
+
+{% set featured = [] %}
+{% for id in goatGraph.ids %}
+  {% if goatGraph.goats[id].featured %}{% set featured = (featured.push(goatGraph.goats[id]), featured) %}{% endif %}
+{% endfor %}
+{% if featured.length %}
+  <h2>Featured goats</h2>
+  <div class="grid">
+    {% for gt in featured | herdOrder %}{{ cards.goatCard(gt) }}{% endfor %}
+  </div>
+{% endif %}
+
+{% if site.blog_enabled !== false and collections.posts and collections.posts.length %}
+  <h2>From the blog</h2>
+  <div class="post-grid">
+    {% for post in (collections.posts | reverse).slice(0, 3) %}{% include "partials/post-card.njk" %}{% endfor %}
+  </div>
+  <p><a href="/blog/">All posts →</a></p>
+{% endif %}
+
+{% if (site.featured_posts | hasItems) or site.feed_embed_code %}
+  <section class="latest-social">
+    <h2>Latest from the farm</h2>
+    {% if site.featured_posts | hasItems %}
+      {% set embedList = site.featured_posts %}
+      {% include "partials/social-embeds.njk" %}
+    {% endif %}
+    {# Optional feed widget code from a service like Elfsight (Farm settings) #}
+    {% if site.feed_embed_code %}<div class="feed-widget">{{ site.feed_embed_code | safe }}</div>{% endif %}
+  </section>
+{% endif %}
