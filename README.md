@@ -97,3 +97,7 @@ The page shows a preview; the player loads only when someone taps it. Other link
 ## Parents: ids or plain names
 
 `dam` and `sire` can be another goat's `id` (links to its page) or a plain name like `Willow Creek Hazel` (shown as text, no warning). A value that looks like an id but has no file, such as `ls-mapel`, is shown as text and the build prints a `[goats]` warning.
+
+## Grandparents
+
+When a parent has its own page, the grandparents come from that page automatically. When a parent is only a plain name (an outside sire, a doe you bought), type the grandparents from the registration papers into the four "Dam's dam / Dam's sire / Sire's dam / Sire's sire" boxes under that parent in the goat form (`dam_dam_name`, `dam_sire_name`, `sire_dam_name`, `sire_sire_name`). Milk stars like `1*M` can go right in the name.

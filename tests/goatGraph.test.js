@@ -137,3 +137,26 @@ test("goatIdFrom handles paths, ids and names", () => {
   assert.equal(goatIdFrom(" Willow Creek Hazel "), "Willow Creek Hazel");
   assert.equal(goatIdFrom(undefined), "");
 });
+
+test("grandparents typed from papers fill in for outside parents", () => {
+  const { goats } = buildGoatGraph([
+    { id: "mama", name: "Mama", sex: "doe", dam: "granny-file", sire: "Old Buck" },
+    { id: "granny-file", name: "Granny", sex: "doe" },
+    {
+      id: "kola", name: "Kola", sex: "doe",
+      dam_name: "Sweet River Emerald", sire_name: "Still Meadow Basil",
+      dam_dam_name: "River Birch Farms Cinder 1*M", dam_sire_name: "Sweet River Irish Whiskey",
+      sire_dam_name: "Pricker Patch Farm Salt & Pepper 1*M", sire_sire_name: "Still Meadow Dante",
+    },
+    // Dam has her own page, so her parents win over anything typed.
+    { id: "kid", name: "Kid", sex: "doe", dam: "mama", dam_dam_name: "Ignored", sire_sire_name: "Typed Grandsire" },
+  ]);
+  const k = goats.kola.grandparents;
+  assert.equal(k.damDam.name, "River Birch Farms Cinder 1*M");
+  assert.equal(k.sireDam.name, "Pricker Patch Farm Salt & Pepper 1*M");
+  assert.equal(k.sireSire.found, false);
+  const kid = goats.kid.grandparents;
+  assert.equal(kid.damDam.id, "granny-file");
+  assert.equal(kid.damSire.name, "Old Buck");
+  assert.equal(kid.sireSire.name, "Typed Grandsire");
+});

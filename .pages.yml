@@ -101,6 +101,13 @@ content:
       - name: dam_name
         label: Dam's name, if she isn't in your goat list
         type: string
+      - name: dam_dam_name
+        label: "Dam's dam (grandmother), if the dam isn't in your goat list"
+        type: string
+        description: "Copy from the registration papers, e.g. Pricker Patch Farm Salt & Pepper 1*M. Skip if the dam has her own page; her parents are used."
+      - name: dam_sire_name
+        label: "Dam's sire (grandfather), if the dam isn't in your goat list"
+        type: string
       - name: sire
         label: Sire (father), from your goat list
         type: reference
@@ -111,6 +118,12 @@ content:
           label: "{name}"
       - name: sire_name
         label: Sire's name, if he isn't in your goat list
+        type: string
+      - name: sire_dam_name
+        label: "Sire's dam (grandmother), if the sire isn't in your goat list"
+        type: string
+      - name: sire_sire_name
+        label: "Sire's sire (grandfather), if the sire isn't in your goat list"
         type: string
       - name: pedigree_url
         label: Online pedigree link
