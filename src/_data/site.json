@@ -5,16 +5,11 @@
   "location": "Chehalis, WA",
   "tagline": "Small-herd Kinder goats, raised for milk, meat and good company.",
   "home_intro": "We're a small family farm raising registered Kinder goats for milk, meat and good company. Every goat here has its own page with photos, records and family, so you can see exactly what you're getting.",
-  "logo": "",
-  "contact_email": "you@example.com",
-  "form_endpoint": "",
+  "theme_preset": "pasture",
   "show_prices": false,
   "show_samples": true,
   "blog_enabled": true,
-  "url": "",
-  "registry_name": "KGBA",
-  "registry_full_name": "Kinder Goat Breeders Association",
-  "registry_search_url": "https://kindergoatbreeders.com/pedigrees/pp_search.php",
+  "contact_email": "jori@lingeringseasons.com",
   "herd_health_tests": [
     {
       "date": "2025-10-12",
@@ -24,23 +19,8 @@
       "report": "/images/health/herd-2025-10.svg"
     }
   ],
-  "social": {
-    "facebook": "",
-    "instagram": "",
-    "youtube": "",
-    "tiktok": "",
-    "threads": ""
-  },
-  "featured_posts": [],
-  "feed_embed_code": "",
-  "theme_preset": "pasture",
-  "theme": {
-    "primary": "",
-    "accent": "",
-    "background": "",
-    "heading_font": "",
-    "body_font": ""
-  },
-  "share_image": "",
+  "registry_name": "KGBA",
+  "registry_full_name": "Kinder Goat Breeders Association",
+  "registry_search_url": "https://kindergoatbreeders.com/pedigrees/pp_search.php",
   "editor_url": "https://app.pagescms.org"
 }
