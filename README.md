@@ -62,6 +62,8 @@ Paste a goat's KGBA online pedigree address into its `pedigree_url`. A **View KG
 
 List photos under `photos` in each goat file; the first is the main photo. Upload them as they come off the phone, including iPhone HEIC photos: the build turns HEIC into JPEG (`lib/heic.js`) and makes small, fast copies of every photo (`lib/images.js`). Lab reports can be HEIC too. On the page they swipe sideways, and tapping one opens it full screen.
 
+**Keep each file under 3 MB.** The web editor can't upload bigger files (it shows a 413 error). iPhones from the 15 Pro on take 24-megapixel photos that are too big; set **Settings > Camera > Formats > Photo Mode** to **12 MP**. For a photo that's already too big, open it in Preview, use Tools > Adjust Size to make it about 3000 pixels on the long side, then File > Export as HEIC or JPEG.
+
 ## Sale sheets
 
 Print any goat page (there's a **Print sale sheet** link under Quick facts, or use the browser's Print) for a one-page sheet with the main photo, price, quick facts, parents, grandparents and a QR code back to the page.

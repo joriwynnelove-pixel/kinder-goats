@@ -134,7 +134,7 @@ content:
       - name: photos
         label: Photos
         type: object
-        description: "The first photo is the main photo. iPhone HEIC photos are fine; the site shrinks them automatically. Each photo must be under about 4 MB: on iPhone set Settings > Camera > Formats > Photo Mode to 12 MP. The editor shows the file name, not a preview."
+        description: "The first photo is the main photo. iPhone HEIC photos are fine; the site shrinks them automatically. Each photo must be under 3 MB: on iPhone set Settings > Camera > Formats > Photo Mode to 12 MP. The editor shows the file name, not a preview."
         list:
           collapsible: { collapsed: true, summary: "{caption} {date}" }
         fields:

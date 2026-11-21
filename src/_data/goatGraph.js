@@ -33,7 +33,9 @@ export default function () {
       const { data, content } = matter(readFileSync(join(goatsDir, file), "utf8"));
       // Goats added in the web editor have no id; their file name is the id.
       const id = data.id || file.replace(/\.md$/, "");
-      return { ...data, id, _file: `goats/${file}`, blurb: blurbFrom(content) };
+      // Drop photo entries with no photo (e.g. a failed upload left only a date).
+      const photos = Array.isArray(data.photos) ? data.photos.filter((p) => p && p.image) : [];
+      return { ...data, id, photos, _file: `goats/${file}`, blurb: blurbFrom(content) };
     })
     // Sample goats are hidden when "Show sample goats" is off in Farm settings
     .filter((g) => show_samples !== false || g.sample !== true);

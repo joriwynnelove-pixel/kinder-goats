@@ -51,7 +51,7 @@ export default {
 
     // Share preview: the main photo, 1200px wide, as an absolute URL
     shareImage: async (data) => {
-      const first = Array.isArray(data.photos) && data.photos[0];
+      const first = Array.isArray(data.photos) && data.photos.find((p) => p && p.image);
       const base = siteUrl(data);
       if (!first || !first.image || !base) return null;
       const img = await shareImage(first.image, outDir(data));
