@@ -14,5 +14,11 @@ dam_name: Sweet River Anari
 dam_dam_name: Sweet River Cambozola
 dam_sire_name: CNS Ranch
 sire_name: Willamina Creek Kinders Royal Highness
+sire_dam_name: Willamina Creek Kinders CG
+sire_sire_name: Wright Acres Ranch D&Ls Mother Doobie
+pedigree_url: https://kindergoatbreeders.com/pedigrees/pp_pedigree.php?id=32510016D&db=pedigree&gens=5
+photos:
+  - date: 2026-10-01
+  - image: /images/goats/img3561.jpg
 sample: false
 ---
