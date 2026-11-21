@@ -16,5 +16,8 @@ sire_name: Still Meadow Basil
 sire_dam_name: Pricker Patch Farm Salt & Pepper 1*M(FP)
 sire_sire_name: Still Meadow Dante
 pedigree_url: https://kindergoatbreeders.com/pedigrees/pp_pedigree.php?id=32510019D&db=pedigree&gens=5
+photos:
+  - caption: 1.5 years old
+    date: 2026-10-01
 sample: false
 ---
