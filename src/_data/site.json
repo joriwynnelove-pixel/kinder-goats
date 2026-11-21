@@ -7,7 +7,7 @@
   "home_intro": "We're a small family farm raising registered Kinder goats for milk, meat and good company. Every goat here has its own page with photos, records and family, so you can see exactly what you're getting.",
   "theme_preset": "pasture",
   "show_prices": false,
-  "show_samples": true,
+  "show_samples": false,
   "blog_enabled": true,
   "contact_email": "jori@lingeringseasons.com",
   "herd_health_tests": [
