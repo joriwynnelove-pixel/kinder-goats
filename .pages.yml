@@ -7,7 +7,9 @@ media:
   output: /images
   rename: safe
   # iPhone photos (HEIC) are fine: the build makes JPEG copies automatically
-  extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, svg, pdf]
+  # Both spellings: the editor treats .HEIC and .heic as different, and
+  # iPhones name files IMG_1234.HEIC.
+  extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, svg, pdf, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF, PDF]
 
 content:
   # ------------------------------------------------------------------ Goats
@@ -136,7 +138,7 @@ content:
         list:
           collapsible: { collapsed: true, summary: "{caption} {date}" }
         fields:
-          - { name: image, label: Photo, type: image, options: { path: src/images/goats, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif] } }
+          - { name: image, label: Photo, type: image, options: { path: src/images/goats, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF] } }
           - { name: caption, label: Caption, type: string }
           - { name: date, label: Date taken, type: date, default: "" }
       - name: videos
@@ -185,7 +187,7 @@ content:
           - { name: test, label: Test, type: string, description: "e.g. CAE, CL, Johne's" }
           - { name: result, label: Result, type: string }
           - { name: lab, label: Lab, type: string }
-          - { name: report, label: Lab report (photo or PDF), type: file, description: "Cover your address and account numbers first.", options: { path: src/images/reports, extensions: [jpg, jpeg, png, webp, heic, heif, pdf] } }
+          - { name: report, label: Lab report (photo or PDF), type: file, description: "Cover your address and account numbers first.", options: { path: src/images/reports, extensions: [jpg, jpeg, png, webp, heic, heif, pdf, JPG, JPEG, PNG, WEBP, HEIC, HEIF, PDF] } }
       - name: kidding_history
         label: Kidding history
         type: object
@@ -218,7 +220,7 @@ content:
     fields:
       - { name: title, label: Title, type: string, required: true }
       - { name: date, label: Date, type: date }
-      - { name: cover, label: Cover photo, type: image, options: { path: src/images/blog, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif] } }
+      - { name: cover, label: Cover photo, type: image, options: { path: src/images/blog, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF] } }
       - { name: summary, label: Short summary, type: text, description: Shown on the blog list and in share previews. }
       - { name: topics, label: Topics, type: string, list: true, description: "e.g. Kidding, Goat care, Farm news" }
       - name: goats
@@ -285,7 +287,7 @@ content:
       - { name: location, label: Location, type: string, description: "e.g. Chehalis, WA" }
       - { name: tagline, label: Tagline, type: string }
       - { name: home_intro, label: Home page welcome, type: rich-text }
-      - { name: logo, label: Logo (optional), type: image, options: { path: src/images/site, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif] } }
+      - { name: logo, label: Logo (optional), type: image, options: { path: src/images/site, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF] } }
       - name: theme_preset
         label: Color theme
         type: select
@@ -335,10 +337,10 @@ content:
           - { name: test, label: Tests, type: string }
           - { name: result, label: Result, type: string }
           - { name: lab, label: Lab, type: string }
-          - { name: report, label: Lab report (photo or PDF), type: file, options: { path: src/images/reports, extensions: [jpg, jpeg, png, webp, heic, heif, pdf] } }
+          - { name: report, label: Lab report (photo or PDF), type: file, options: { path: src/images/reports, extensions: [jpg, jpeg, png, webp, heic, heif, pdf, JPG, JPEG, PNG, WEBP, HEIC, HEIF, PDF] } }
       - { name: registry_name, label: Registry short name, type: string, description: "e.g. KGBA" }
       - { name: registry_full_name, label: Registry full name, type: string }
       - { name: registry_search_url, label: Registry pedigree search page, type: string }
       - { name: url, label: Site address (optional), type: string, description: Filled in automatically on GitHub Pages. Only set this if you use your own domain name. }
-      - { name: share_image, label: Default share picture, type: image, options: { extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif] }, description: Used when a page without its own photo is shared. }
+      - { name: share_image, label: Default share picture, type: image, options: { extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF] }, description: Used when a page without its own photo is shared. }
       - { name: editor_url, type: string, hidden: true }
