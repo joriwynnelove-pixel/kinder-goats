@@ -4,7 +4,7 @@ nickname: Acacia
 sex: doe
 status: retained
 featured: true
-birth_date: 2026-04-08
+birth_date: 2025-04-08
 registration_number: 32510016D
 tattoo: "R: HRT L:T06"
 color: Black with Standard Tan Markings, Heavy Moonspots, Frosted Ears, White Crown
