@@ -134,11 +134,11 @@ content:
       - name: photos
         label: Photos
         type: object
-        description: The first photo is the main photo. Upload straight from your phone (iPhone HEIC photos are fine); the site shrinks them automatically.
+        description: "The first photo is the main photo. iPhone HEIC photos are fine; the site shrinks them automatically. Each photo must be under about 4 MB: on iPhone set Settings > Camera > Formats > Photo Mode to 12 MP. The editor shows the file name, not a preview."
         list:
           collapsible: { collapsed: true, summary: "{caption} {date}" }
         fields:
-          - { name: image, label: Photo, type: image, options: { path: src/images/goats, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF] } }
+          - { name: image, label: Photo, type: file, options: { path: src/images/goats, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF] } }
           - { name: caption, label: Caption, type: string }
           - { name: date, label: Date taken, type: date, default: "" }
       - name: videos
@@ -220,7 +220,7 @@ content:
     fields:
       - { name: title, label: Title, type: string, required: true }
       - { name: date, label: Date, type: date }
-      - { name: cover, label: Cover photo, type: image, options: { path: src/images/blog, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF] } }
+      - { name: cover, label: Cover photo, type: file, options: { path: src/images/blog, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF] } }
       - { name: summary, label: Short summary, type: text, description: Shown on the blog list and in share previews. }
       - { name: topics, label: Topics, type: string, list: true, description: "e.g. Kidding, Goat care, Farm news" }
       - name: goats
@@ -287,7 +287,7 @@ content:
       - { name: location, label: Location, type: string, description: "e.g. Chehalis, WA" }
       - { name: tagline, label: Tagline, type: string }
       - { name: home_intro, label: Home page welcome, type: rich-text }
-      - { name: logo, label: Logo (optional), type: image, options: { path: src/images/site, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF] } }
+      - { name: logo, label: Logo (optional), type: file, options: { path: src/images/site, extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF] } }
       - name: theme_preset
         label: Color theme
         type: select
@@ -342,5 +342,5 @@ content:
       - { name: registry_full_name, label: Registry full name, type: string }
       - { name: registry_search_url, label: Registry pedigree search page, type: string }
       - { name: url, label: Site address (optional), type: string, description: Filled in automatically on GitHub Pages. Only set this if you use your own domain name. }
-      - { name: share_image, label: Default share picture, type: image, options: { extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF] }, description: Used when a page without its own photo is shared. }
+      - { name: share_image, label: Default share picture, type: file, options: { extensions: [jpg, jpeg, png, webp, gif, avif, heic, heif, JPG, JPEG, PNG, WEBP, GIF, AVIF, HEIC, HEIF] }, description: Used when a page without its own photo is shared. }
       - { name: editor_url, type: string, hidden: true }
