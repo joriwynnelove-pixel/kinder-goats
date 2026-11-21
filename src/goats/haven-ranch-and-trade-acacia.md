@@ -20,5 +20,6 @@ pedigree_url: https://kindergoatbreeders.com/pedigrees/pp_pedigree.php?id=325100
 photos:
   - date: 2026-10-01
   - image: /images/goats/img3561.jpg
+    date: 2026-10-01
 sample: false
 ---
