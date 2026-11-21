@@ -22,5 +22,7 @@ photos:
     caption: 1.5 years old.
     date: 2026-10-01
   - image: /images/goats/img3567.heic
+    caption: 1.5 years old.
+    date: 2026-10-01
 sample: false
 ---
